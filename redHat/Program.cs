@@ -1,5 +1,4 @@
-﻿
-using redHat;
+﻿using redHat;
 namespace red
 {
     internal class Program
