@@ -8,6 +8,10 @@ namespace redHat.Squares
 {
     internal class Hunters : Square
     {
+        public Hunters(Map map) : base(map)
+        {
+        }
+
         public override bool Pass()
         {
             throw new NotImplementedException();

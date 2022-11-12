@@ -8,6 +8,9 @@ namespace redHat.Squares
 {
     internal class RedHatsHouse : Square
     {
+        public RedHatsHouse(Map map) : base(map)
+        {
+        }
 
         public override bool Pass()
         {

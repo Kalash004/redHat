@@ -8,6 +8,10 @@ namespace redHat.Squares
 {
     internal class Hole : Square
     {
+        public Hole(Map map) : base(map)
+        {
+        }
+
         public override bool Pass()
         {
             throw new NotImplementedException();

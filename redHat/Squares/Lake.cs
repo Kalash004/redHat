@@ -13,6 +13,9 @@ namespace redHat.Squares
         private bool visitable = false;
         private bool seen = false;
 
+        public Lake(Map map) : base(map)
+        {
+        }
 
         public override bool Pass()
         {

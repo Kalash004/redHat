@@ -9,6 +9,12 @@ namespace redHat
     internal class Player
     {
         protected String name;
+        protected int basket = 3; // items in basket
 
+        public int Basket
+        {
+            get { return basket; } 
+            set { basket = value;}
+        }
     }
 }

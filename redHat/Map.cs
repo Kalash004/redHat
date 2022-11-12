@@ -24,10 +24,11 @@ namespace redHat
         protected int X = 5, Y = 5; // current map dimensions 
         protected Square[,] game_map;
         protected Square player_pos;
-        public Map()
+        public Game game;
+        public Map(Game game)
         {
             this.game_map = GenerateMap();
-
+            this.game = game;
         }
 
 
@@ -41,51 +42,51 @@ namespace redHat
                 for (int j = 0; j < Y; j++)
                 {
                     Random rand = new Random();
-                    int val = rand.Next(0, 1); // maybe add some posibility of different squares
+                    int val = rand.Next(1, 2); // maybe add some posibility of different squares
                     switch (val)
                     {
                         case 0: // lake
-                            Square sqr = new Lake();
+                            Square sqr = new Lake(this);
                             map_generation[i, j] = sqr;
                             break;
 
                         case 1: // trap
-                            Square trap = new Trap();
+                            Square trap = new Trap(this);
                             map_generation[i, j] = trap;
                             break;
 
                         case 2: // wolf
-                            Square wolf = new Wolf();
+                            Square wolf = new Wolf(this);
                             map_generation[i, j] = wolf;
                             break;
 
                         case 3: // grannys house
-                            Square granny = new GrannysHouse();
+                            Square granny = new GrannysHouse(this);
                             map_generation[i, j] = granny;
                             break;
 
                         case 4: // red hats house
-                            Square hat_house = new RedHatsHouse();
+                            Square hat_house = new RedHatsHouse(this);
                             map_generation[i, j] = hat_house;
                             break;
 
                         case 5: // hill 
-                            Square hill = new Hill();
+                            Square hill = new Hill(this);
                             map_generation[i, j] = hill;
                             break;
 
                         case 6: // hole
-                            Square hole = new Hole();
+                            Square hole = new Hole(this);
                             map_generation[i, j] = hole;
                             break;
 
                         case 7: // field
-                            Square field = new MushroomField();
+                            Square field = new MushroomField(this);
                             map_generation[i, j] = field;
                             break;
 
                         case 8: // hunters
-                            Square hunter = new Hunters();
+                            Square hunter = new Hunters(this);
                             map_generation[i, j] = hunter;
                             break;
 

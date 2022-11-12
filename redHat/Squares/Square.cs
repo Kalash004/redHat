@@ -20,7 +20,12 @@ namespace redHat.Squares
         protected bool playerOn; // Is player on this square
         protected bool seen = false; // Was this square seen or show ?
         protected bool visitable; // Can player come here
+        protected Map map;
 
+        public Square(Map map)
+        {
+            this.map = map;
+        }
 
         public virtual string GenerateQuestionAnswer()
         {

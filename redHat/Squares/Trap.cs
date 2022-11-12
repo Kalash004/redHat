@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,13 +11,19 @@ namespace redHat.Squares
     {
         Dictionary<String,String> questions = new Dictionary<String,String>()
         {
-            {"What two words every programmer learned to code first? ","Hello World"},
+            {"What two words every programmer learned to code first?","Hello World"},
             {"What is the most popular programming problem?","Missing a semicolon"},
             {"Where did programmers learn to program?","At Stackoverflow University."},
             {"What is the golden rule in programming?","If it works, don't touch it"},
             {"How do programmers enjoy life?","When they see their codes run without error."},
         };
         private String[] current_question;
+        private String display = "t";
+        public Trap(Map map) : base(map)
+        {
+            current_question = this.generateQuestion();
+        }
+
         public override string GenerateQuestionAnswer()
         {
             return base.GenerateQuestionAnswer();
@@ -24,16 +31,45 @@ namespace redHat.Squares
 
         public override bool Pass()
         {
-            throw new NotImplementedException();
+            return askQuestion();
         }
         public override string ToString()
         {
-            return display;
+            return this.display;
         }
-
+        
+        private bool askQuestion()
+        {
+            Console.WriteLine(current_question[0]);
+            String read = null;
+            while (read == null)
+            {
+                Console.WriteLine(current_question[0]);
+                read = Console.ReadLine();
+            }
+            if (read.Equals(current_question[2]))
+            {
+                return true;
+            }
+            Console.WriteLine("Your answer wasnt right, it will cost you an item from basket hehe");
+            if (map.game.player.Basket > 0)
+            {
+                Console.WriteLine("Yoink");
+                return true;
+            } else
+            {
+                Console.WriteLine("But you DONT HAVE any items in the basket, YOU ARE NOT LEAVING");
+                map.game.GameLost();
+                return false;
+            }
+        }
         private String[] generateQuestion()
         {
-            throw new NotImplementedException();
+            Random rand = new Random();
+            var val = rand.Next(0,questions.Count);
+            return new String[] {questions.ElementAt(val).Key,questions.ElementAt(val).Value};
         }
+
+       
     }
 }

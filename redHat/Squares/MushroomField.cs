@@ -8,6 +8,10 @@ namespace redHat.Squares
 {
     internal class MushroomField : Square
     {
+        public MushroomField(Map map) : base(map)
+        {
+        }
+
         public override bool Pass()
         {
             throw new NotImplementedException();

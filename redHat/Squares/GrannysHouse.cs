@@ -8,6 +8,10 @@ namespace redHat.Squares
 {
     internal class GrannysHouse : Square
     {
+        public GrannysHouse(Map map) : base(map)
+        {
+        }
+
         public override bool Pass()
         {
             throw new NotImplementedException();
