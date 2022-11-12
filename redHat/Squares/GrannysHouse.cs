@@ -8,5 +8,13 @@ namespace redHat.Squares
 {
     internal class GrannysHouse : Square
     {
+        public override bool Pass()
+        {
+            throw new NotImplementedException();
+        }
+        public override string ToString()
+        {
+            return display;
+        }
     }
 }

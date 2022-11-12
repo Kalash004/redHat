@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using redHat.Squares;
 
 namespace redHat
 {
@@ -41,58 +41,56 @@ namespace redHat
                 for (int j = 0; j < Y; j++)
                 {
                     Random rand = new Random();
-                    int val = rand.Next(0, 9); // maybe add some posibility of different squares
+                    int val = rand.Next(0, 1); // maybe add some posibility of different squares
                     switch (val)
                     {
                         case 0: // lake
                             Square sqr = new Lake();
                             map_generation[i, j] = sqr;
-
                             break;
 
                         case 1: // trap
-                            map_generation[i, j] = sqr;
-
+                            Square trap = new Trap();
+                            map_generation[i, j] = trap;
                             break;
 
                         case 2: // wolf
-                            map_generation[i, j] = sqr;
-
+                            Square wolf = new Wolf();
+                            map_generation[i, j] = wolf;
                             break;
 
                         case 3: // grannys house
-                            map_generation[i, j] = sqr;
-
+                            Square granny = new GrannysHouse();
+                            map_generation[i, j] = granny;
                             break;
 
                         case 4: // red hats house
-                            map_generation[i, j] = sqr;
-
+                            Square hat_house = new RedHatsHouse();
+                            map_generation[i, j] = hat_house;
                             break;
 
                         case 5: // hill 
-                            map_generation[i, j] = sqr;
-
+                            Square hill = new Hill();
+                            map_generation[i, j] = hill;
                             break;
 
                         case 6: // hole
-                            map_generation[i, j] = sqr;
-
+                            Square hole = new Hole();
+                            map_generation[i, j] = hole;
                             break;
 
                         case 7: // field
-                            map_generation[i, j] = sqr;
-
+                            Square field = new MushroomField();
+                            map_generation[i, j] = field;
                             break;
 
                         case 8: // hunters
-                            map_generation[i, j] = sqr;
-
+                            Square hunter = new Hunters();
+                            map_generation[i, j] = hunter;
                             break;
 
                     }
                     // generate column values(add level auto generations [traps and other stuff]);
-                    map_generation[i, j] = sqr;
                 }
             }
             return map_generation;

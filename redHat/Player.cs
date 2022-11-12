@@ -8,7 +8,6 @@ namespace redHat
 {
     internal class Player
     {
-        protected Square position;
         protected String name;
 
     }
