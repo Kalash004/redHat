@@ -15,11 +15,9 @@ namespace redHat.Squares
     {
         //private int hard; // TODO: maybe implement hardcorness levels 
         protected string display; // How square is displayed
-        protected string problem; // TODO: description / question to pass this location
-        protected string answer; // TODO: answer to problem 
         protected bool playerOn; // Is player on this square
-        protected bool seen; // Was this square seen or show ?
-        protected bool visitable; // Can player come here
+        protected bool seen = false; // Was this square seen or show ?
+        protected bool visitable = true; // Can player come here
         protected Map map;
         protected bool passed;
 
@@ -56,9 +54,8 @@ namespace redHat.Squares
             throw new NotImplementedException();
         }
 
-        public bool Activity()
+        public virtual bool Activity()
         {
-            Console.WriteLine("This square doesnt have any activity");
             return false;
         }
 

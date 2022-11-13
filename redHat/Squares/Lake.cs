@@ -9,12 +9,11 @@ namespace redHat.Squares
 {
     internal class Lake : Square
     {
-        private string display = "~";
-        private bool visitable = false;
-        private bool seen = false;
 
         public Lake(Map map) : base(map)
         {
+            display = "~";
+            seen = false;
         }
 
         public override bool Pass()
@@ -23,9 +22,6 @@ namespace redHat.Squares
             // doesnt return anything coz player cant visit
         }
 
-        public override string ToString()
-        {
-            return display;
-        }
+    
     }
 }

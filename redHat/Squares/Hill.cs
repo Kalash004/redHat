@@ -10,15 +10,23 @@ namespace redHat.Squares
     {
         public Hill(Map map) : base(map)
         {
+            this.display = "Hill";
+            this.seen = true;
+
         }
 
         public override bool Pass()
         {
-            throw new NotImplementedException();
+            return true;
         }
-        public override string ToString()
+
+        public override bool Activity()
         {
-            return display;
+            Console.WriteLine("You looked around from hill");
+            map.CheckAround(3);
+            map.ShowMap();
+            return true;
         }
+
     }
 }

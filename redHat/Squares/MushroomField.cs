@@ -10,15 +10,24 @@ namespace redHat.Squares
     {
         public MushroomField(Map map) : base(map)
         {
+            display = "Field";
+            seen = false;
         }
 
         public override bool Pass()
         {
-            throw new NotImplementedException();
+            this.passed = true;
+            return true;
         }
-        public override string ToString()
+
+        public override bool Activity()
         {
-            return display;
+            Random random = new();
+            int rand = random.Next(1,4);
+            map.game.player.Basket = map.game.player.Basket + rand;
+            Console.WriteLine("You have taken " + rand + " Mushrooms from the field");
+            return true;
         }
+
     }
 }

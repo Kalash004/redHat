@@ -10,15 +10,15 @@ namespace redHat.Squares
     {
         public Hole(Map map) : base(map)
         {
+            this.display = "Hole";
         }
 
         public override bool Pass()
         {
-            throw new NotImplementedException();
+            this.passed = true;
+            map.ShowMap();
+            return map.MoveToRandom();
         }
-        public override string ToString()
-        {
-            return display;
-        }
+     
     }
 }

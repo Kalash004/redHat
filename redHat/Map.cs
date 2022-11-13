@@ -21,7 +21,7 @@ namespace redHat
     }
     internal class Map
     {
-        protected int X = 2, Y = 2; // current map dimensions 
+        protected int X = 7, Y = 3; // current map dimensions 
         protected Square[,] game_map;
         protected int[] player_pos;
         public Game game;
@@ -96,7 +96,7 @@ namespace redHat
                 for (int j = 0; j < Y; j++)
                 {
                     Random rand = new Random();
-                    int val = rand.Next(1, 2); // maybe add some posibility of different squares
+                    int val = rand.Next(1, 9); // maybe add some posibility of different squares
                     switch (val)
                     {
                         case 0: // lake
@@ -109,10 +109,10 @@ namespace redHat
                             map_generation[i, j] = trap;
                             break;
 
-                        case 2: // wolf
-                            Square wolf = new Wolf(this);
-                            map_generation[i, j] = wolf;
-                            break;
+                        //case 2: // wolf
+                        //    Square wolf = new Wolf(this);
+                        //    map_generation[i, j] = wolf;
+                        //    break;
 
                         //case 3: // grannys house
                         //    Square granny = new GrannysHouse(this);
@@ -139,21 +139,26 @@ namespace redHat
                             map_generation[i, j] = field;
                             break;
 
-                        case 8: // hunters
-                            Square hunter = new Hunters(this);
-                            map_generation[i, j] = hunter;
+                        //case 8: // hunters
+                        //    Square hunter = new Hunters(this);
+                        //    map_generation[i, j] = hunter;
+                        //    break;
+
+                        default:
+                            Square field2 = new MushroomField(this);
+                            map_generation[i, j] = field2;
                             break;
 
                     }
                     // generate column values(add level auto generations [traps and other stuff]);
                 }
             }
-                Square home = new RedHatsHouse(this);
-                Square granny = new GrannysHouse(this);
-                map_generation[X - 1, Y / 2] = home;
-                map_generation[0, Y / 2] = granny;
-                game.player.CurrentLocation = home;
-                player_pos = new int[] { X - 1, Y / 2 };
+            Square home = new RedHatsHouse(this);
+            Square granny = new GrannysHouse(this);
+            map_generation[X - 1, Y / 2] = home;
+            map_generation[0, Y / 2] = granny;
+            game.player.CurrentLocation = home;
+            player_pos = new int[] { X - 1, Y / 2 };
             return map_generation;
         }
 
@@ -182,6 +187,29 @@ namespace redHat
             Console.WriteLine(ToString());
         }
 
+        public bool MoveToRandom()
+        {
+            Random rand = new();
+            Square sqr = null;
+            bool reachable = false;
+            int[] next_loc = null;
+            while (!reachable)
+            {
+                int x = rand.Next(0, 1 + X);
+                int y = rand.Next(0, 1 + Y);
+                sqr = game_map[x, y];
+                if (sqr.Visitable)
+                {
+                    next_loc = new int[] {x,y};
+                    reachable = true;
+                }
+            }
+            game.player.CurrentLocation.PlayerOn = false;
+            game.player.CurrentLocation = sqr;
+            player_pos = next_loc;
+            game.player.CurrentLocation.PlayerOn = true;
+            return true;
+        }
         public bool CheckAround(int i)
         {
             for (int j = 1; j < i; j++)

@@ -10,9 +10,8 @@ namespace redHat.Squares
     {
         public GrannysHouse(Map map) : base(map)
         {
-            display = "G";
+            display = "Granny";
             seen = true;
-            base.visitable = true;
             base.playerOn = false;
         }
 
@@ -30,6 +29,12 @@ namespace redHat.Squares
                 passed = false;
                 return false;
             }
+        }
+
+        public override bool Activity()
+        {
+            Console.WriteLine("This square doesnt have any activity");
+            return false;
         }
     }
 }

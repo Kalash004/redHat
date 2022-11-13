@@ -22,9 +22,14 @@ namespace redHat.Squares
 
         public Trap(Map map) : base(map)
         {
-            display = "t";
+            display = "Trap";
             current_question = this.ChooseQuestion();
-            visitable = true;
+        }
+
+        public override bool Activity()
+        {
+            Console.WriteLine("This square doesnt have any activity");
+            return false;
         }
 
         public override string GenerateQuestionAnswer()

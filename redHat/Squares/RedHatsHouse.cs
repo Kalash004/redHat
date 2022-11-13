@@ -10,19 +10,31 @@ namespace redHat.Squares
     {
         public RedHatsHouse(Map map) : base(map)
         {
-            display = "H";
+            display = "Home";
             base.playerOn = true;
         }
-
+        private bool refilled;
         public override bool Pass()
         {
             return true;
+            this.passed = true;
         }
 
-        public override string ToString()
+        public override bool Activity()
         {
-            return display;
+            if (!refilled)
+            {
+                Console.WriteLine("You have replenished your basket");
+                map.game.player.Basket = map.game.player.StartingB;
+                refilled = true;
+                return true;
+            } else
+            {
+                Console.WriteLine("Are you eating all of it, you cant have any !");
+                return false;
+            }
         }
+
     }
-    
+
 }
