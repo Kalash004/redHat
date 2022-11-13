@@ -15,8 +15,8 @@ namespace redHat
         public Player player;
         public Game()
         {
-            map = new Map(this);
             player = new Player();
+            map = new Map(this);
             playing = true;
         }
 
@@ -26,24 +26,37 @@ namespace redHat
             Console.WriteLine("Welcome to RedHat game alpha \n" +
                 "You are in your house and your objective is to get items in your basket to your grandmas house \n" +
                 "Here is map, you can only see places that are near you, to find out about other places you have to come near to them (1 square around):");
-            map.ShowMap();
             int i = 1;
             while (playing)
             {
                 // game loop
                 Console.WriteLine("Current round :" + i);
+                CheckAround();
                 map.ShowMap();
-                player.CurrentLocation.Pass();
-                GameMenu();
+                if (!player.CurrentLocation.Passed)
+                {
+                    player.CurrentLocation.Pass();
+                }
+                if (playing)
+                {
+                    GameMenu();
+                }
                 i++;
             }
             // end game 
+            Console.WriteLine("Thanks for playing Alpha version of RedHat game");
         }
 
         public void GameLost()
         {
             this.playing = false;
             Console.WriteLine("Game lost"); // maybe add some info at the end
+        }
+
+        public void GameWon()
+        {
+            this.playing  = false;
+            Console.WriteLine("Game won nice !");
         }
 
         public void GameMenu()
@@ -62,7 +75,10 @@ namespace redHat
                     Move();
                     break;
                 case 2:
-                    player.CurrentLocation.Activity();
+                    if(!player.CurrentLocation.Activity())
+                    {
+                        GameMenu();
+                    }
                     break;
             }
         }
@@ -79,6 +95,11 @@ namespace redHat
                 choose = int.Parse(Console.ReadLine()); // FIX: add null catcher 
             }
             return map.Move((int)choose);
+        }
+
+        public bool CheckAround()
+        {
+            return map.CheckAround(2);
         }
 
     }

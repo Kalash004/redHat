@@ -10,11 +10,13 @@ namespace redHat.Squares
     {
         public RedHatsHouse(Map map) : base(map)
         {
+            display = "H";
+            base.playerOn = true;
         }
 
         public override bool Pass()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public override string ToString()

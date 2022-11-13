@@ -21,14 +21,14 @@ namespace redHat
     }
     internal class Map
     {
-        protected int X = 5, Y = 5; // current map dimensions 
+        protected int X = 2, Y = 2; // current map dimensions 
         protected Square[,] game_map;
         protected int[] player_pos;
         public Game game;
         public Map(Game game)
         {
-            this.game_map = GenerateMap();
             this.game = game;
+            this.game_map = GenerateMap();
         }
 
         public int[] PlayerPos
@@ -57,7 +57,7 @@ namespace redHat
                     next_loc = new int[] { player_pos[0] + 1, player_pos[1] };
                     break;
             }
-            if (next_loc[0] < 0 || next_loc[0] > X-1 || next_loc[1] < 0 || next_loc[1] > Y-1)
+            if (next_loc[0] < 0 || next_loc[0] > X - 1 || next_loc[1] < 0 || next_loc[1] > Y - 1)
             {
                 Console.WriteLine("You cant get out of the map");
                 return game.Move();
@@ -67,8 +67,10 @@ namespace redHat
                 next_sqr = game_map[next_loc[0], next_loc[1]];
                 if (next_sqr.Visitable)
                 {
+                    game.player.CurrentLocation.PlayerOn = false;
                     game.player.CurrentLocation = next_sqr;
                     this.player_pos = next_loc;
+                    game.player.CurrentLocation.PlayerOn = true;
                     return true;
                 }
                 else
@@ -112,15 +114,15 @@ namespace redHat
                             map_generation[i, j] = wolf;
                             break;
 
-                        case 3: // grannys house
-                            Square granny = new GrannysHouse(this);
-                            map_generation[i, j] = granny;
-                            break;
+                        //case 3: // grannys house
+                        //    Square granny = new GrannysHouse(this);
+                        //    map_generation[i, j] = granny;
+                        //    break;
 
-                        case 4: // red hats house
-                            Square hat_house = new RedHatsHouse(this);
-                            map_generation[i, j] = hat_house;
-                            break;
+                        //case 4: // red hats house
+                        //    Square hat_house = new RedHatsHouse(this);
+                        //    map_generation[i, j] = hat_house;
+                        //    break;
 
                         case 5: // hill 
                             Square hill = new Hill(this);
@@ -146,6 +148,12 @@ namespace redHat
                     // generate column values(add level auto generations [traps and other stuff]);
                 }
             }
+                Square home = new RedHatsHouse(this);
+                Square granny = new GrannysHouse(this);
+                map_generation[X - 1, Y / 2] = home;
+                map_generation[0, Y / 2] = granny;
+                game.player.CurrentLocation = home;
+                player_pos = new int[] { X - 1, Y / 2 };
             return map_generation;
         }
 
@@ -169,9 +177,41 @@ namespace redHat
             return returner;
         }
 
-        internal void ShowMap()
+        public void ShowMap()
         {
             Console.WriteLine(ToString());
+        }
+
+        public bool CheckAround(int i)
+        {
+            for (int j = 1; j < i; j++)
+            {
+                int[] next_loc = new int[] { player_pos[0], player_pos[1] + j };
+                if (next_loc[0] >= 0 && next_loc[0] <= X - 1 && next_loc[1] >= 0 && next_loc[1] <= Y - 1)
+                {
+                    Square next_sqr = game_map[next_loc[0], next_loc[1]];
+                    next_sqr.Seen = true;
+                }
+                next_loc = new int[] { player_pos[0], player_pos[1] - j };
+                if (next_loc[0] >= 0 && next_loc[0] <= X - 1 && next_loc[1] >= 0 && next_loc[1] <= Y - 1)
+                {
+                    Square next_sqr = game_map[next_loc[0], next_loc[1]];
+                    next_sqr.Seen = true;
+                }
+                next_loc = new int[] { player_pos[0] + j, player_pos[1] };
+                if (next_loc[0] >= 0 && next_loc[0] <= X - 1 && next_loc[1] >= 0 && next_loc[1] <= Y - 1)
+                {
+                    Square next_sqr = game_map[next_loc[0], next_loc[1]];
+                    next_sqr.Seen = true;
+                }
+                next_loc = new int[] { player_pos[0] - j, player_pos[1] };
+                if (next_loc[0] >= 0 && next_loc[0] <= X - 1 && next_loc[1] >= 0 && next_loc[1] <= Y - 1)
+                {
+                    Square next_sqr = game_map[next_loc[0], next_loc[1]];
+                    next_sqr.Seen = true;
+                }
+            }
+            return true;
         }
     }
 }

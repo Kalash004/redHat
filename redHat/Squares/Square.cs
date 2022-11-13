@@ -18,7 +18,7 @@ namespace redHat.Squares
         protected string problem; // TODO: description / question to pass this location
         protected string answer; // TODO: answer to problem 
         protected bool playerOn; // Is player on this square
-        protected bool seen = false; // Was this square seen or show ?
+        protected bool seen; // Was this square seen or show ?
         protected bool visitable; // Can player come here
         protected Map map;
         protected bool passed;
@@ -28,10 +28,27 @@ namespace redHat.Squares
             this.map = map;
         }
 
+        public bool Seen
+        {
+            get { return this.seen; }
+            set { this.seen = value; }
+        }
         public bool Visitable
         {
             get { return visitable; }
             set { visitable = value; }
+        }
+
+        public bool Passed
+        {
+            get { return this.passed; }
+            set { this.passed = value; }
+        }
+
+        public bool PlayerOn
+        {
+            get { return playerOn; }
+            set { playerOn = value; }
         }
 
         public virtual string GenerateQuestionAnswer()
@@ -41,7 +58,8 @@ namespace redHat.Squares
 
         public bool Activity()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("This square doesnt have any activity");
+            return false;
         }
 
         public virtual bool Pass()
@@ -54,18 +72,19 @@ namespace redHat.Squares
 
         public override string ToString()
         {
+            String returner;
+            if (seen)
+            {
+                returner = display;
+            }else 
+            {
+                returner = "?";
+            }
             if (playerOn)
             {
-                return "ඞ";
+                returner = map.game.player.Name;
             }
-            else if (seen)
-            {
-                return display;
-            }
-            else
-            {
-                return "?";
-            }
+            return returner;
             /*
             return String.Format("Square name: {0}" +
                 "Problem: {1} \n" +

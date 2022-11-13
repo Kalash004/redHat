@@ -14,9 +14,9 @@ namespace redHat.Squares
         {
             {"What two words every programmer learned to code first?","Hello World"},
             {"What is the most popular programming problem?","Missing a semicolon"},
-            {"Where did programmers learn to program?","At Stackoverflow University."},
+            {"Where did programmers learn to program?","At Stackoverflow University"},
             {"What is the golden rule in programming?","If it works, don't touch it"},
-            {"How do programmers enjoy life?","When they see their codes run without error."},
+            {"How do programmers enjoy life?","When they see their codes run without error"},
         };
         private String[] current_question;
 
@@ -35,26 +35,26 @@ namespace redHat.Squares
         public override bool Pass()
         {
             bool returner = AskQuestion();
-            this.passed = returner;
+            this.passed = true;
             return returner;
         }
         
         private bool AskQuestion()
         {
-            Console.WriteLine(current_question[0]);
             String? read = null;
             while (read == null)
             {
                 Console.WriteLine(current_question[0]);
                 read = Console.ReadLine();
             }
-            if (read.Equals(current_question[2]))
+            if (read.Equals(current_question[1]))
             {
                 return true;
             }
             Console.WriteLine("Your answer wasnt right, it will cost you an item from basket hehe");
             if (map.game.player.Basket > 0)
             {
+                map.game.player.Basket = map.game.player.Basket - 1;
                 Console.WriteLine("Yoink");
                 return true;
             } else
