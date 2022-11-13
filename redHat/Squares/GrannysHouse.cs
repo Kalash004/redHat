@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+        /// <summary>
+        /// Finish line, if you have enough items in basket you win, if no you can go back and get some items
+        /// </summary>
     internal class GrannysHouse : Square
     {
+        /// <param name="map"> map </param>
         public GrannysHouse(Map map) : base(map)
         {
             display = "Granny";

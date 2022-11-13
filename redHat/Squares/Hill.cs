@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+    /// <summary>
+    /// You are able to look 2 squares around you (not diagonal)
+    /// </summary>
     internal class Hill : Square
     {
         public Hill(Map map) : base(map)

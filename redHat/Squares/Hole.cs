@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+    /// <summary>
+    /// Hole transports you one time to different place
+    /// </summary>
     internal class Hole : Square
     {
         public Hole(Map map) : base(map)
@@ -15,10 +18,11 @@ namespace redHat.Squares
 
         public override bool Pass()
         {
-            this.passed = true;
+            passed = true;
+            map.MoveToRandom();
             map.ShowMap();
-            return map.MoveToRandom();
+            return true;
         }
-     
+
     }
 }

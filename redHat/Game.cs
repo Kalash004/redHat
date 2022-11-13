@@ -41,6 +41,15 @@ namespace redHat
                 {
                     GameMenu();
                 }
+                bool wolfspawn = false;
+                if (map.Wolf_Npc.Spawned)
+                {
+                    if (!wolfspawn)
+                    {
+                        wolfspawn = true;
+                    }
+                    map.Wolf_Npc.Hunt();
+                }
                 i++;
             }
             // end game 

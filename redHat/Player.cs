@@ -10,7 +10,7 @@ namespace redHat
     internal class Player
     {
         protected int starting_basket = 1;
-        protected String name = "RedHat";
+        protected String name = "RH";
         protected int basket; // items in basket
         protected Square current_location;
 

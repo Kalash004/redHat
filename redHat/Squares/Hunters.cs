@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+    /// <summary>
+    /// not done
+    /// </summary>
     internal class Hunters : Square
     {
         public Hunters(Map map) : base(map)

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+
+    /// <summary>
+    /// You are asked question here, if you answer right, you can go away, if no you lose one item from basket.
+    /// </summary>
     internal class Trap : Square
     {
         Dictionary<String,String> questions = new Dictionary<String,String>()
@@ -39,6 +43,7 @@ namespace redHat.Squares
 
         public override bool Pass()
         {
+            this.seen = true;
             bool returner = AskQuestion();
             this.passed = true;
             return returner;

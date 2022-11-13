@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+    /// <summary>
+    /// You cant come here
+    /// </summary>
     internal class Lake : Square
     {
 

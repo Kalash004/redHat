@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+    /// <summary>
+    /// Replenish your basket
+    /// </summary>
     internal class MushroomField : Square
     {
+        private bool activated = false;
         public MushroomField(Map map) : base(map)
         {
             display = "Field";
@@ -22,10 +26,17 @@ namespace redHat.Squares
 
         public override bool Activity()
         {
-            Random random = new();
-            int rand = random.Next(1,4);
-            map.game.player.Basket = map.game.player.Basket + rand;
-            Console.WriteLine("You have taken " + rand + " Mushrooms from the field");
+            if (!activated)
+            {
+                Random random = new();
+                int rand = random.Next(1, 4);
+                map.game.player.Basket = map.game.player.Basket + rand;
+                Console.WriteLine("You have taken " + rand + " Mushrooms from the field");
+                activated = true;
+            } else
+            {
+                Console.WriteLine("You cant take more from here");
+            }
             return true;
         }
 

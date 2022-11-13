@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
-    /* 
-     * WAYS TO GET THRU
-     * 1) Answer a Question
-     * 2) Random numbers fight
-     */
+    /// <summary>
+    /// Class Base for other places
+    /// </summary>
     internal class Square
     {
         //private int hard; // TODO: maybe implement hardcorness levels 
@@ -20,6 +18,7 @@ namespace redHat.Squares
         protected bool visitable = true; // Can player come here
         protected Map map;
         protected bool passed;
+        protected bool wolfOn = false;
 
         public Square(Map map)
         {
@@ -49,6 +48,12 @@ namespace redHat.Squares
             set { playerOn = value; }
         }
 
+        public bool WolfOn
+        {
+            get { return wolfOn; }
+            set { wolfOn = value; }
+        }
+
         public virtual string GenerateQuestionAnswer()
         {
             throw new NotImplementedException();
@@ -63,9 +68,9 @@ namespace redHat.Squares
         {
             throw new NotImplementedException();
         }
-            // TODO: Implement testing for answer / or number fight (choose a number if number is bigger than number from square and is not +3 bigger pass else stuck) 
-            //if answered make it to give move options from Map
-            //if didnt answer she gets stuck Call method from Game to ask for help.
+        // TODO: Implement testing for answer / or number fight (choose a number if number is bigger than number from square and is not +3 bigger pass else stuck) 
+        //if answered make it to give move options from Map
+        //if didnt answer she gets stuck Call method from Game to ask for help.
 
         public override string ToString()
         {
@@ -73,11 +78,20 @@ namespace redHat.Squares
             if (seen)
             {
                 returner = display;
-            }else 
+            }
+            else
             {
                 returner = "?";
             }
-            if (playerOn)
+            if (playerOn && wolfOn)
+            {
+                returner = map.game.player.Name + " + " + map.Wolf_Npc.Display;
+            }
+            else if (wolfOn)
+            {
+                returner = map.Wolf_Npc.Display;
+            }
+            else if (playerOn)
             {
                 returner = map.game.player.Name;
             }

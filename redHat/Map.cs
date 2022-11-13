@@ -24,19 +24,46 @@ namespace redHat
         protected int X = 7, Y = 3; // current map dimensions 
         protected Square[,] game_map;
         protected int[] player_pos;
+        protected int[] wolf_pos;
+        protected Wolf wolf;
         public Game game;
         public Map(Game game)
         {
             this.game = game;
+            this.wolf = new Wolf(this);
             this.game_map = GenerateMap();
         }
 
+        public Wolf Wolf_Npc
+        {
+            get { return wolf; }
+            set { wolf = value; }
+        }
+
+        public Square[,] GameMap
+        {
+            get { return game_map; }
+        }
+        public int getX
+        {
+            get { return X; }
+        }
+
+        public int getY
+        {
+            get { return Y; }
+        }
         public int[] PlayerPos
         {
             get { return player_pos; }
             set { player_pos = value; }
         }
 
+        public int[] WolfPos
+        {
+            get { return wolf_pos; }
+            set { wolf_pos = value; }
+        }
 
         public bool Move(int val)
         {
@@ -109,10 +136,10 @@ namespace redHat
                             map_generation[i, j] = trap;
                             break;
 
-                        //case 2: // wolf
-                        //    Square wolf = new Wolf(this);
-                        //    map_generation[i, j] = wolf;
-                        //    break;
+                        case 2: // wolf
+                            Square wolf_cave = new Wolf_Cave(this, this.wolf,new int[] {i,j});
+                            map_generation[i, j] = wolf_cave;
+                            break;
 
                         //case 3: // grannys house
                         //    Square granny = new GrannysHouse(this);
@@ -195,12 +222,12 @@ namespace redHat
             int[] next_loc = null;
             while (!reachable)
             {
-                int x = rand.Next(0, 1 + X);
-                int y = rand.Next(0, 1 + Y);
+                int x = rand.Next(0, X);
+                int y = rand.Next(0, Y);
                 sqr = game_map[x, y];
                 if (sqr.Visitable)
                 {
-                    next_loc = new int[] {x,y};
+                    next_loc = new int[] { x, y };
                     reachable = true;
                 }
             }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace redHat.Squares
 {
+    /// <summary>
+    /// Starting line, you can replenish your basket one time if you come back here
+    /// </summary>
     internal class RedHatsHouse : Square
     {
         public RedHatsHouse(Map map) : base(map)
@@ -18,6 +21,7 @@ namespace redHat.Squares
         {
             return true;
             this.passed = true;
+            this.seen = true;
         }
 
         public override bool Activity()
