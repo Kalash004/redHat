@@ -11,7 +11,7 @@ namespace redHat.Squares
      * 1) Answer a Question
      * 2) Random numbers fight
      */
-    internal abstract class Square
+    internal class Square
     {
         //private int hard; // TODO: maybe implement hardcorness levels 
         protected string display; // How square is displayed
@@ -21,10 +21,17 @@ namespace redHat.Squares
         protected bool seen = false; // Was this square seen or show ?
         protected bool visitable; // Can player come here
         protected Map map;
+        protected bool passed;
 
         public Square(Map map)
         {
             this.map = map;
+        }
+
+        public bool Visitable
+        {
+            get { return visitable; }
+            set { visitable = value; }
         }
 
         public virtual string GenerateQuestionAnswer()
@@ -32,7 +39,15 @@ namespace redHat.Squares
             throw new NotImplementedException();
         }
 
-        public abstract bool Pass();
+        public bool Activity()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool Pass()
+        {
+            throw new NotImplementedException();
+        }
             // TODO: Implement testing for answer / or number fight (choose a number if number is bigger than number from square and is not +3 bigger pass else stuck) 
             //if answered make it to give move options from Map
             //if didnt answer she gets stuck Call method from Game to ask for help.
@@ -41,11 +56,11 @@ namespace redHat.Squares
         {
             if (playerOn)
             {
-                return "-o-";
+                return "ඞ";
             }
             else if (seen)
             {
-                return display.ToString();
+                return display;
             }
             else
             {

@@ -16,18 +16,26 @@ namespace redHat
         public Game()
         {
             map = new Map(this);
-            Console.WriteLine("map created");
-            Console.WriteLine(map.ToString());
             player = new Player();
-            Console.WriteLine("player created");
+            playing = true;
         }
 
         public void GameLoop()
         {
             // start game
+            Console.WriteLine("Welcome to RedHat game alpha \n" +
+                "You are in your house and your objective is to get items in your basket to your grandmas house \n" +
+                "Here is map, you can only see places that are near you, to find out about other places you have to come near to them (1 square around):");
+            map.ShowMap();
+            int i = 1;
             while (playing)
             {
                 // game loop
+                Console.WriteLine("Current round :" + i);
+                map.ShowMap();
+                player.CurrentLocation.Pass();
+                GameMenu();
+                i++;
             }
             // end game 
         }
@@ -40,7 +48,37 @@ namespace redHat
 
         public void GameMenu()
         {
+            int? choose = null;
+            while (choose == null || choose < 1 && choose > 4)
+            {
+                Console.WriteLine("Choose option : \n" +
+                    "1) Move \n" +
+                    "2) Square activity \n");
+                choose = int.Parse(Console.ReadLine()); // FIX: add null catcher 
+            }
+            switch (choose)
+            {
+                case 1:
+                    Move();
+                    break;
+                case 2:
+                    player.CurrentLocation.Activity();
+                    break;
+            }
+        }
 
+        public bool Move()
+        {
+            int? choose = null;
+            while (choose == null || choose < 1 && choose > 4)
+            {
+                Console.WriteLine("1) Right \n" +
+                    "2) Front \n" +
+                    "3) Left \n" +
+                    "4) Back \n");
+                choose = int.Parse(Console.ReadLine()); // FIX: add null catcher 
+            }
+            return map.Move((int)choose);
         }
 
     }

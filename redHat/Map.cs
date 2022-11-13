@@ -23,7 +23,7 @@ namespace redHat
     {
         protected int X = 5, Y = 5; // current map dimensions 
         protected Square[,] game_map;
-        protected Square player_pos;
+        protected int[] player_pos;
         public Game game;
         public Map(Game game)
         {
@@ -31,6 +31,58 @@ namespace redHat
             this.game = game;
         }
 
+        public int[] PlayerPos
+        {
+            get { return player_pos; }
+            set { player_pos = value; }
+        }
+
+
+        public bool Move(int val)
+        {
+            int[] next_loc = null;
+            Square next_sqr;
+            switch (val)
+            {
+                case 1: // Right might add enum if have time
+                    next_loc = new int[] { player_pos[0], player_pos[1] + 1 };
+                    break;
+                case 2: // Front
+                    next_loc = new int[] { player_pos[0] - 1, player_pos[1] };
+                    break;
+                case 3: // Left
+                    next_loc = new int[] { player_pos[0], player_pos[1] - 1 };
+                    break;
+                case 4:  // Back
+                    next_loc = new int[] { player_pos[0] + 1, player_pos[1] };
+                    break;
+            }
+            if (next_loc[0] < 0 || next_loc[0] > X-1 || next_loc[1] < 0 || next_loc[1] > Y-1)
+            {
+                Console.WriteLine("You cant get out of the map");
+                return game.Move();
+            }
+            if (next_loc != null && game_map[next_loc[0], next_loc[1]] != null)
+            {
+                next_sqr = game_map[next_loc[0], next_loc[1]];
+                if (next_sqr.Visitable)
+                {
+                    game.player.CurrentLocation = next_sqr;
+                    this.player_pos = next_loc;
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("You cant visit that location");
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please re enter the location");
+                return game.Move();
+            }
+        }
 
         // maybe in future game hardness (bigger map ?)
         public Square[,] GenerateMap()
@@ -115,6 +167,11 @@ namespace redHat
                 returner = returner + "\n\n";
             }
             return returner;
+        }
+
+        internal void ShowMap()
+        {
+            Console.WriteLine(ToString());
         }
     }
 }

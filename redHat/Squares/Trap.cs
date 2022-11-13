@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,12 @@ namespace redHat.Squares
             {"How do programmers enjoy life?","When they see their codes run without error."},
         };
         private String[] current_question;
-        private String display = "t";
+
         public Trap(Map map) : base(map)
         {
-            current_question = this.generateQuestion();
+            display = "t";
+            current_question = this.ChooseQuestion();
+            visitable = true;
         }
 
         public override string GenerateQuestionAnswer()
@@ -31,17 +34,15 @@ namespace redHat.Squares
 
         public override bool Pass()
         {
-            return askQuestion();
-        }
-        public override string ToString()
-        {
-            return this.display;
+            bool returner = AskQuestion();
+            this.passed = returner;
+            return returner;
         }
         
-        private bool askQuestion()
+        private bool AskQuestion()
         {
             Console.WriteLine(current_question[0]);
-            String read = null;
+            String? read = null;
             while (read == null)
             {
                 Console.WriteLine(current_question[0]);
@@ -63,9 +64,9 @@ namespace redHat.Squares
                 return false;
             }
         }
-        private String[] generateQuestion()
+        private String[] ChooseQuestion()
         {
-            Random rand = new Random();
+            Random rand = new();
             var val = rand.Next(0,questions.Count);
             return new String[] {questions.ElementAt(val).Key,questions.ElementAt(val).Value};
         }
